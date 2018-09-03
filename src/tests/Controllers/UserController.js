@@ -3,7 +3,7 @@ require('dotenv').config();
 import server from "../../../index";
 import supertest from "supertest";
 import chai from "chai";
-import messages from "../../utils/messages";
+import { responseMessages } from "../../utils/messages";
 import { errorCodes, successCodes } from "../../utils/statusCodes";
 
 const APItoken = process.env.API_TOKEN;
@@ -17,7 +17,7 @@ describe("Vport API", () => {
       .set("Content-Type", "application/json")
       .end((error, res) => {
         expect(res.status).to.equal(errorCodes.forbidden)
-        expect(res.body.message).to.equal(messages.INVALID_API_TOKEN);
+        expect(res.body.message).to.equal(responseMessages.INVALID_API_TOKEN);
         done();
       });
   });
@@ -28,7 +28,7 @@ describe("Vport API", () => {
       .set("api_token", APItoken)
       .end((error, res) => {
         expect(res.status).to.equal(successCodes.ok)
-        expect(res.body.message).to.equal(messages.WELCOME);
+        expect(res.body.message).to.equal(responseMessages.WELCOME);
         done();
       });
   });
